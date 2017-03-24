@@ -8,8 +8,6 @@ For our project idea we would like to write a physics system or particle system 
 
 The results of this project will be displayed in a youtube video or web app.
 
-=
-
 ## Possible Physics to implement:
 
 * Applied force
