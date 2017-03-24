@@ -5,6 +5,6 @@ Proposal: Rewrite a game engine or physics engine or particle system extension u
 Ideas:
 
 * Physics Engine
-* Particle System
+* Particle System - [Brian Ustas Example](https://github.com/ustasb/emoji_soup)
 * Graphics/resource management
 * Machine vision
