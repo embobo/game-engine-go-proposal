@@ -1,0 +1,12 @@
+# Binaries and plugins
+*.DS_Store
+*.dll
+*.dylib
+*.so
+
+
+# Test binary, build with 'go test -c'
+*.test
+
+# Output of go coverage tool when used with LiteIDE
+*.out
