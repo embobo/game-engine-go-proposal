@@ -65,6 +65,21 @@ func (m Vector2) Magnitude() float64 {
 	return Sqrt(Pow(m.X, 2) + Pow(m.Y, 2))
 }
 
+// Absolute distance between m and n
+func (m Vector2) Distance(n Vector2) float64 {
+	return Abs(m.Magnitude - n.Magnitude)
+}
+
+// Get vector rotated from this vector
+func (m Vector2) Rotate (cos, sin float64, reverse bool) Vector2 {
+	if (reverse) {
+		return Vector2{m.X*cos + m.Y.sin, m.Y*cos - m.X*sin}
+	}
+	if (reverse) {
+		return Vector2{m.X*cos - m.Y*sin, m.Y*cos + m.X*sin}
+	}
+}
+
 // Gets Magnitude of m < n
 func (m Vector2) LessThan(n Vector2) bool {
 	return m.Magnitude() < n.Magnitude()
