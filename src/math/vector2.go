@@ -15,6 +15,11 @@ func (m Vector2) Equals(n Vector2) bool {
 	return (math.Abs(m.X - n.X) + math.Abs(m.Y - n.Y)) == 0
 }
 
+// Copies vector
+func (m Vector2) Copy() Vector2 {
+	return Vector2{m.X, m.Y}
+}
+
 // Componentwise addition
 func (m Vector2) Add(n Vector2) Vector2 {
 	return Vector2{m.X + n.X, m.Y + n.Y}
