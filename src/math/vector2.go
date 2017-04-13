@@ -26,7 +26,7 @@ func (m Vector2) Add(n Vector2) Vector2 {
 }
 
 // Self componentwise addition
-func (m *Vector2) Add(n Vector2) {
+func (m *Vector2) SelfAdd(n Vector2) {
 	m.X += n.X
 	m.Y += n.Y
 }
@@ -37,7 +37,7 @@ func (m Vector2) Subtract(n Vector2) Vector2 {
 }
 
 // Self componentwise subtraction
-func (m *Vector2) Subtract(n Vector2) {
+func (m *Vector2) SelfSubtract(n Vector2) {
 	m.X -= n.X
 	m.Y -= n.Y
 }
@@ -48,7 +48,7 @@ func (m Vector2) Multiply(n Vector2) Vector2 {
 }
 
 // Self componentwise multiplication
-func (m *Vector2) Multiply(n Vector2) {
+func (m *Vector2) SelfMultiply(n Vector2) {
 	m.X *= n.X
 	m.Y *= n.Y
 }
@@ -59,7 +59,7 @@ func (m Vector2) Divide(n Vector2) Vector2 {
 }
 
 // Self componentwise division
-func (m *Vector2) Divide(n Vector2)  {
+func (m *Vector2) SelfDivide(n Vector2)  {
 	m.X /= n.X
 	m.Y /= n.Y
 }
@@ -70,7 +70,7 @@ func (m Vector2) AddScalar(k float64) Vector2 {
 }
 
 // Self componentwise scalar addition
-func (m *Vector2) AddScalar(k float64) {
+func (m *Vector2) SelfAddScalar(k float64) {
 	m.X += k
 	m.Y += k
 }
@@ -81,7 +81,7 @@ func (m Vector2) SubtractScalar(k float64) Vector2 {
 }
 
 // Self componentwise scalar subtraction
-func (m *Vector2) SubtractScalar(k float64) {
+func (m *Vector2) SelfSubtractScalar(k float64) {
 	m.X -= k
 	m.Y -= k
 }
@@ -92,7 +92,7 @@ func (m Vector2) MultiplyScalar(k float64) Vector2 {
 }
 
 // Self componentwise scalar multiplication
-func (m *Vector2) MultiplyScalar(k float64) {
+func (m *Vector2) SelfMultiplyScalar(k float64) {
 	m.X *= k
 	m.Y *= k
 }
@@ -103,7 +103,7 @@ func (m Vector2) DivideScalar(k float64) Vector2 {
 }
 
 // Self componentwise scalar division
-func (m *Vector2) DivideScalar(k float64) {
+func (m *Vector2) SelfDivideScalar(k float64) {
 	m.X /= k
 	m.Y /= k
 }
@@ -119,7 +119,7 @@ func (m Vector2) Distance(n Vector2) float64 {
 }
 
 // Get vector rotated from this vector
-func (m Vector2) Rotate (cos, sin float64, reverse bool) Vector2 {
+func (m Vector2) Rotate(cos, sin float64, reverse bool) Vector2 {
 	if (reverse) {
 		return Vector2{m.X*cos + m.Y.sin, m.Y*cos - m.X*sin}
 	}
