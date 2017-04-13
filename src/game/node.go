@@ -1,146 +1,118 @@
-package main
+package gobject
 
 import (
   "fmt"
   "math"
+  "gmath"
+  "github.com/gopherjs/gopherjs/js"
 )
 
-//Node structure (emoji balls)
+// Node structure
 type Node struct {
-  attract_distance, attract_strength float64
-  bounce_friction, dampen float64
-  x, y, vx, vy, radius, mass float64
+  Attract_distance, Attract_strength float64
+  Bounce_friction, Dampen float64
+  Position gmath.Vector2
+  Velicity gmath.Vector2
+  Radius, Mass float64
 }
 
-//Constructor for Nodes
-func (t *Node) Init(){
-  t.attract_distance = 90
-  t.attract_strength = 0.0003
-  t.bounce_friction = -0.9
-  t.dampen = 1
-  t.x, t.y, t.vx, t.vy, t.radius = 10
-  t.mass = t.radius / 10
+// JS Constructor
+func NewJS() *js.Object {
+  return js.MakeWrapper(&New())
 }
 
-func rotate (x, y, cos, sin, reverse int) (x, y int){
-  if reverse {
-    x = x * cos + y * sin
-    y = y * cos - x * sin
-    return
-  } else {
-    x = x * cos - y * sin
-    y = y * cos + x * sin
-    return
-  }
+// Constructor for Nodes
+func New() (Node) {
+  return Node{90, 0.0003, -0.9, 1, gmath.Vector2{10, 10}, gmath.Vector2{10, 10}, 10, 10}
 }
 
 //Add motion to Nodes
-func (t *Node) move(){
-  t.vx *= t.dampen
-  t.vy += t.dampen
-
-  t.x += t.vx
-  t.y += t.vy
+func (t *Node) Move() {
+  t.Velicity.SelfMultiplyScalar(t.dampen)
+  t.Position.SelfAdd(t.velocity)
 }
 
-func (t *Node, farX, farY int) checkBoundary(){
-  if t.x - t.radius < 0 {
-    t.x = t.radius
-    t.vx *= t.bounce_friction
-  } else if t.x + t.radius > farX {
-    t.x = farX - t.radius
-    t.vx *= t.bounce_friction
+func (t *Node, farX, farY int) CheckBoundary() {
+  if (t.Position.X - t.Radius < 0) {
+    t.Position.X = t.Radius
+    t.Velocity.X *= t.Bounce_friction
+  } else if (t.Position.X + t.Radius > farX) {
+    t.Position.X = farX - t.Radius
+    t.Velocity.X *= t.Bounce_friction
   }
-  if t.y - t.radius << 0 {
-    t.y = t.radius
-    t.vy *= t.bounce_friction
-  } else if t.y + t.radius >= farY {
-    t.y = farY - t.radius
-    t.vy *= t.bounce_friction
+  if (t.Position.Y - t.Radius < 0) {
+    t.Position.Y = t.Radius
+    t.Velocity.Y *= t.Bounce_friction
+  } else if (t.Position.Y + t.Radius >= farY) {
+    t.Position.Y = farY - t.Radius
+    t.Velocity.Y *= t.Bounce_friction
   }
 }
 
-func (t *Node, radiusIncrease int) makeBigger(){
-  t.radius += radiusIncrease
-  t.mass = t.radius / 10
+func (t *Node, radiusIncrease int) MakeBigger() {
+  t.Radius += radiusIncrease
+  t.Mass = t.Radius / 10
 }
 
-func (t *Node, other *Node) hasCollided(){
-  dx = other.x - t.x
-  dy = other.y - t.y
-  dist = math.Sqrt(dx * dc + dy * dy)
-  return dist < t.radius + other.radius
+func (t *Node) HasCollided(other *Node) {
+  dist = t.Distance(other)
+  return (dist < (t.Radius + other.Radius))
 }
 
-func (t *Node, other *Node) checkAttraction() {
-  dx = other.x - t.x
-  dy = other.y - t.y
-  dist = math.Sqrt(dx * dx + dy * dy)
-  if dist > t.attract_distance {
-    return false;
-  }
-
-  ax = dx * t.attract_strength
-  ay = dy * t.attract_strength
-  other.vx -= ax / other.mass
-  other.vy -= ay / other.mass
-  t.vx += ax / t.mass
-  t.vy += ay / t.mass
-
-  alpha = 1 - dist / t.attract_strength
-}
-
-func (t* Node, other *Node) checkCollision(){
-  dx = other.x - t.x
-  dy = other.y - t.y
-  dist = math.Sqrt(dx * dx + dy * dy)
-
-  if dist > t.radius + other.radius {
+func (t *Node) CheckAttraction(other *Node) (bool) {
+  dist = t.Distance(other)
+  if (dist > t.Attract_distance) {
     return false
   }
 
-  angle = math.Atan2(dy, dx)
+  attractVector = dist.MultiplyScalar(t.Attract_strength)
+
+  other.Velocity.SelfSubtract(attractVector.DivideScalar(other.Mass))
+  t.Velocity.SelfAdd(attractVector.DivideScalar(t.Mass))
+
+  // TODO what is this doing?
+  // alpha = 1 - dist / t.attract_strength
+  return true
+}
+
+func (t* Node) CheckCollision(other *Node) (bool) {
+  dist = t.Position.Distance(other.Position)
+  if (dist > (t.Radius + other.Radius)) {
+    return false
+  }
+
+  angle = math.Atan2(dist.Y, dist.X)
   sin = math.Sin(angle)
   cos = math.Cos(angle)
 
   //Rotate positions
-  p0.x = 0
-  p0.y = 0
-  p1 = rotate(dx, dy, cos, sin, true)
+  p0 = gmath.Vector2{0, 0}
+  p1 = pos0.Rotate(cos, sin, true)
 
   //Rotate velocities
-  v0 = rotate(t.vx, y.vy, cos, sin, true)
-  v1 = rotate(other.vx, other.vy, cos, sin, true)
+  v0 = t.Rotate(cos, sin, true)
+  v1 = other.Rotate(cos, sin, true)
 
   //Conserve Momentum
-  vxReaction = v0.x - v1.x
-  v0.x = ((t.mass - other.mass) * v0.x + 2 * other.mass * v1.x) / (t.mass + other.mass)
-  v1.x = vxReaction + v0.x
+  vxReaction = v0.X - v1.X
+  v0.X = ((t.Mass - other.Mass) * v0.X + 2 * other.Mass * v1.X) / (t.Mass + other.Mass)
+  v1.X = vxReaction + v0.X
 
   //Prevent Emoji from sticking
-  absV = math.Abs(v0.x) + math.Abs(v1.x)
-  overlap = (t.radius + other.radius) - math.Avs(p0.x - p1.x)
-  p0.x += v0.x / absV * overlap
-  p1.x += v1.x / absV * overlap
+  absV = math.Abs(v0.X) + math.Abs(v1.X)
+  overlap = (t.Radius + other.Radius) - math.Abs(p0.X - p1.X)
+  p0.X += v0.X / absV * overlap
+  p1.X += v1.X / absV * overlap
 
   //Rotate positions back
-  p0F = rotate(p0.x, p0.y, cos, sin, false)
-  p1F = rotate(p1.x, p1.y, cos, sin, false)
-  other.x = t.x + p1F.x
-  other.y = t.y + p1F.y
-  t.x = t.x + p0F.x
-  t.y = t.y + p0F.y
+  t.Position.SelfAdd(p0.Rotate(cos, sin, false))
+  other.Position.SelfAdd(p1.Rotate(cos, sin, false))
 
   //Rotate velocities back
-  v0F = rotate(v0.x, v0.y, cos, sin, false)
-  v1F = rotate(v1.x, v1.y, cos, sin, false)
-  t.vx = v0F.x
-  t.vy = v0F.y
-  other.vs = v1F.x
-  other.vy = v1F.y
+  t.Velocity = v0.Rotate(cos, sin, false)
+  other.Velocity = v1.Rotate(cos, sin, false)
 
   return true
-
 }
 
 
