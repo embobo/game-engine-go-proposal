@@ -1,5 +1,7 @@
 package gobject
 
+import "github.com/gopherjs/gopherjs/js"
+
 min_emotion = 0
 max_emotion = 10
 neutral_emotion = max_emotion / 2
@@ -9,8 +11,13 @@ type Emotion struct {
 	stability float64
 }
 
+// JS constructor
+func NewJS() *js.Object {
+	return js.MakeWrapper(&New())
+}
+
 // Constructor (useful for default settings)
-func NewEmotion() Emotion {
+func New() Emotion {
 	return Emotion{neutral_emotion, 0.005}
 }
 

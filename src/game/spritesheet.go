@@ -1,5 +1,7 @@
 package gobject
 
+import "github.com/gopherjs/gopherjs/js"
+
 default_image_location = "imgs/default.png"
 
 type SpriteSheet struct {
@@ -11,7 +13,11 @@ type SpriteSheet struct {
 	count float64
 }
 
-func NewSpriteSheet() SpriteSheet {
+func NewJS() *js.Object {
+	return js.MakeWrapper(&SpriteSheet{})
+}
+
+func New() SpriteSheet {
 	return SpriteSheet{default_image_location,32,5,22,867}
 }
 
@@ -34,5 +40,3 @@ func (s *SpriteSheet) SetCount(count float64) {
 func (s SpriteSheet) GetCount() {
 	return s.count
 }
-
-
