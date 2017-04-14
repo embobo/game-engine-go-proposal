@@ -55,12 +55,12 @@ func (t *Node, radiusIncrease int) MakeBigger() {
 }
 
 func (t *Node) HasCollided(other *Node) {
-  dist = t.Distance(other)
+  dist = t.Position.Distance(other)
   return (dist < (t.Radius + other.Radius))
 }
 
 func (t *Node) CheckAttraction(other *Node) (bool) {
-  dist = t.Distance(other)
+  dist = t.Position.Distance(other)
   if (dist > t.Attract_distance) {
     return false
   }

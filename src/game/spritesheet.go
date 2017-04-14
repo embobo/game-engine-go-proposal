@@ -14,7 +14,7 @@ type SpriteSheet struct {
 }
 
 func NewJS() *js.Object {
-	return js.MakeWrapper(&SpriteSheet{})
+	return js.MakeWrapper(&New())
 }
 
 func New() SpriteSheet {
