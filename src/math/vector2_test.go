@@ -2,7 +2,7 @@ package gmath
 
 import "testing"
 
-func TestVector2Equal(test *testing.T) {
+func TestEqual(test *testing.T) {
 	v := Vector2{1,2}
 	if !v.Equals(Vector2{1,2}) {
 		test.Fail()
@@ -12,70 +12,120 @@ func TestVector2Equal(test *testing.T) {
 	}
 }
 
-func TestVector2Add(test *testing.T) {
+func TestAdd(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.Add(Vector2{2,3}).Equals(Vector2{3,5})) {
+	r = v.Add(Vector2{2,3})
+	if !(r.Equals(Vector2{3,5})) {
 		test.Fail()
 	}
 }
 
-func TestVector2Subtract(test *testing.T) {
+func TestSelfAdd(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.Subtract(Vector2{2,2}).Equals(Vector2{-1,0})) {
+	if !(v.SelfAdd(Vector2{2,3}).Equals(Vector2{3,5})) {
 		test.Fail()
 	}
 }
 
-func TestVector2Multiply(test *testing.T) {
+func TestSubtract(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.Multiply(Vector2{4,2}).Equals(Vector2{4,4})) {
+	r = v.Subtract(Vector2{2,2})
+	if !(r.Equals(Vector2{-1,0})) {
 		test.Fail()
 	}
 }
 
-func TestVector2Divide(test *testing.T) {
+func TestSelfSubtract(test *testing.T) {
+	v := Vector2{3,5}
+	if !(v.SelfSubtract(Vector2{4,2}).Equals(Vector2{-1,3})) {
+		test.Fail()
+	}
+}
+
+func TestMultiply(test *testing.T) {
+	v := Vector2{1,2}
+	r = v.Multiply(Vector2{4,2})
+	if !(r.Equals(Vector2{4,4})) {
+		test.Fail()
+	}
+}
+
+func TestSelfMultiply(test *testing.T) {
+	v := Vector2{1,2}
+	if !(v.SelfMultiply(Vector2{4,-2}).Equals(Vector2{4,-4})) {
+		test.Fail()
+	}
+}
+
+func TestDivide(test *testing.T) {
 	v := Vector2{3,8}
-	if !(v.Divide(Vector2{2,4}).Equals(Vector2{1.5,2})) {
+	r = v.Divide(Vector2{2,4})
+	if !(r.Equals(Vector2{1.5,2})) {
 		test.Fail()
 	}
 }
 
-func TestVector2AddScalar(test *testing.T) {
+func TestSelfDivide(test *testing.T) {
+	v := Vector2{4,4}
+	if !(v.SelfDivide(Vector2{2,2}).Equals(Vector2{2,2})) {
+		test.Fail()
+	}
+}
+
+func TestAddScalar(test *testing.T) {
 	v := Vector2{1,3}
-	if !(v.AddScalar(2).Equals(Vector2{3,5})) {
+	r = v.AddScalar(2)
+	if !(r.Equals(Vector2{3,5})) {
 		test.Fail()
 	}
 }
 
-func TestVector2SubtractScalar(test *testing.T) {
+func TestSelfAddScalar(test *testing.T) {
+	v := Vector2{1,3}
+	if !(v.SelfAddScalar(2).Equals(Vector2{3,5})) {
+		test.Fail()
+	}
+}
+
+func TestSubtractScalar(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.SubtractScalar(2).Equals(Vector2{-1,0})) {
+	r = v.SubtractScalar(2)
+	if !(r.Equals(Vector2{-1,0})) {
 		test.Fail()
 	}
 }
 
-func TestVector2MultiplyScalar(test *testing.T) {
+func TestSelfSubtractScalar(test *testing.T) {
+	v := Vector2{1,3}
+	if !(v.SelfSubtractScalar(2).Equals(Vector2{-1,0})) {
+		test.Fail()
+	}
+}
+
+func TestMultiplyScalar(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.MultiplyScalar(3).Equals(Vector2{3,6})) {
+	r = v.MultiplyScalar(3)
+	if !(r.Equals(Vector2{3,6})) {
 		test.Fail()
 	}
 }
 
-func TestVector2DivideScalar(test *testing.T) {
+func TestDivideScalar(test *testing.T) {
 	v := Vector2{3,8}
-	if !(v.DivideScalar(2).Equals(Vector2{1.5,4})) {
+	r = v.DivideScalar(2)
+	if !(r.Equals(Vector2{1.5,4})) {
 		test.Fail()
 	}
 }
 
-func TestVector2Magnitude(test *testing.T) {
+func TestMagnitude(test *testing.T) {
 	v := Vector{3,4}
 	if !(v.Magnitude() == 5) {
 		test.Fail()
 	}
 }
 
-func TestVector2LessThan(test *testing.T) {
+func TestLessThan(test *testing.T) {
 	v := Vector{1,2}
 	if v.LessThan(Vector2{0,2}) {
 		test.Fail()
@@ -88,7 +138,7 @@ func TestVector2LessThan(test *testing.T) {
 	}
 }
 
-func TestVector2GreaterThan(test *testing.T) {
+func TestGreaterThan(test *testing.T) {
 	v := Vector2{1,2}
 	if v.GreaterThan(Vector2{1,3}) {
 		test.Fail()
