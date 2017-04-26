@@ -14,7 +14,7 @@ func TestEqual(test *testing.T) {
 
 func TestAdd(test *testing.T) {
 	v := Vector2{1,2}
-	r = v.Add(Vector2{2,3})
+	r := v.Add(Vector2{2,3})
 	if !(r.Equals(Vector2{3,5})) {
 		test.Fail()
 	}
@@ -29,7 +29,7 @@ func TestSelfAdd(test *testing.T) {
 
 func TestSubtract(test *testing.T) {
 	v := Vector2{1,2}
-	r = v.Subtract(Vector2{2,2})
+	r := v.Subtract(Vector2{2,2})
 	if !(r.Equals(Vector2{-1,0})) {
 		test.Fail()
 	}
@@ -44,7 +44,7 @@ func TestSelfSubtract(test *testing.T) {
 
 func TestMultiply(test *testing.T) {
 	v := Vector2{1,2}
-	r = v.Multiply(Vector2{4,2})
+	r := v.Multiply(Vector2{4,2})
 	if !(r.Equals(Vector2{4,4})) {
 		test.Fail()
 	}
@@ -59,7 +59,7 @@ func TestSelfMultiply(test *testing.T) {
 
 func TestDivide(test *testing.T) {
 	v := Vector2{3,8}
-	r = v.Divide(Vector2{2,4})
+	r := v.Divide(Vector2{2,4})
 	if !(r.Equals(Vector2{1.5,2})) {
 		test.Fail()
 	}
@@ -74,7 +74,7 @@ func TestSelfDivide(test *testing.T) {
 
 func TestAddScalar(test *testing.T) {
 	v := Vector2{1,3}
-	r = v.AddScalar(2)
+	r := v.AddScalar(2)
 	if !(r.Equals(Vector2{3,5})) {
 		test.Fail()
 	}
@@ -89,7 +89,7 @@ func TestSelfAddScalar(test *testing.T) {
 
 func TestSubtractScalar(test *testing.T) {
 	v := Vector2{1,2}
-	r = v.SubtractScalar(2)
+	r := v.SubtractScalar(2)
 	if !(r.Equals(Vector2{-1,0})) {
 		test.Fail()
 	}
@@ -104,7 +104,7 @@ func TestSelfSubtractScalar(test *testing.T) {
 
 func TestMultiplyScalar(test *testing.T) {
 	v := Vector2{1,2}
-	r = v.MultiplyScalar(3)
+	r := v.MultiplyScalar(3)
 	if !(r.Equals(Vector2{3,6})) {
 		test.Fail()
 	}
@@ -112,21 +112,21 @@ func TestMultiplyScalar(test *testing.T) {
 
 func TestDivideScalar(test *testing.T) {
 	v := Vector2{3,8}
-	r = v.DivideScalar(2)
+	r := v.DivideScalar(2)
 	if !(r.Equals(Vector2{1.5,4})) {
 		test.Fail()
 	}
 }
 
 func TestMagnitude(test *testing.T) {
-	v := Vector{3,4}
+	v := Vector2{3,4}
 	if !(v.Magnitude() == 5) {
 		test.Fail()
 	}
 }
 
 func TestLessThan(test *testing.T) {
-	v := Vector{1,2}
+	v := Vector2{1,2}
 	if v.LessThan(Vector2{0,2}) {
 		test.Fail()
 	}

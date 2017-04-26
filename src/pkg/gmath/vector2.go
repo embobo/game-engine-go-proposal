@@ -1,7 +1,6 @@
 package gmath
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -110,22 +109,20 @@ func (m *Vector2) SelfDivideScalar(k float64) {
 
 // Gets Magnitude
 func (m Vector2) Magnitude() float64 {
-	return Sqrt(Pow(m.X, 2) + Pow(m.Y, 2))
+	return math.Sqrt(math.Pow(m.X, 2) + math.Pow(m.Y, 2))
 }
 
 // Absolute distance between m and n
 func (m Vector2) Distance(n Vector2) float64 {
-	return Abs(m.Magnitude - n.Magnitude)
+	return math.Abs(m.Magnitude() - n.Magnitude())
 }
 
 // Get vector rotated from this vector
 func (m Vector2) Rotate(cos, sin float64, reverse bool) Vector2 {
 	if (reverse) {
-		return Vector2{m.X*cos + m.Y.sin, m.Y*cos - m.X*sin}
+		return Vector2{m.X*cos + m.Y*sin, m.Y*cos - m.X*sin}
 	}
-	if (reverse) {
-		return Vector2{m.X*cos - m.Y*sin, m.Y*cos + m.X*sin}
-	}
+	return Vector2{m.X*cos - m.Y*sin, m.Y*cos + m.X*sin}
 }
 
 // Gets Magnitude of m < n

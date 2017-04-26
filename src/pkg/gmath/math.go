@@ -1,6 +1,6 @@
 package gmath
 
-import "math"
+//import "math"
 
 func Equal(x, y float64) bool {
 	return x == y
