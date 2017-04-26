@@ -22,7 +22,9 @@ func TestAdd(test *testing.T) {
 
 func TestSelfAdd(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.SelfAdd(Vector2{2,3}).Equals(Vector2{3,5})) {
+	r := Vector2{2,3}
+	v.SelfAdd(r)
+	if !(v.Equals(Vector2{3,5})) {
 		test.Fail()
 	}
 }
@@ -37,7 +39,8 @@ func TestSubtract(test *testing.T) {
 
 func TestSelfSubtract(test *testing.T) {
 	v := Vector2{3,5}
-	if !(v.SelfSubtract(Vector2{4,2}).Equals(Vector2{-1,3})) {
+	v.SelfSubtract(Vector2{4,2})
+	if !(v.Equals(Vector2{-1,3})) {
 		test.Fail()
 	}
 }
@@ -52,7 +55,8 @@ func TestMultiply(test *testing.T) {
 
 func TestSelfMultiply(test *testing.T) {
 	v := Vector2{1,2}
-	if !(v.SelfMultiply(Vector2{4,-2}).Equals(Vector2{4,-4})) {
+	v.SelfMultiply(Vector2{4,-2})
+	if !(v.Equals(Vector2{4,-4})) {
 		test.Fail()
 	}
 }
@@ -67,7 +71,8 @@ func TestDivide(test *testing.T) {
 
 func TestSelfDivide(test *testing.T) {
 	v := Vector2{4,4}
-	if !(v.SelfDivide(Vector2{2,2}).Equals(Vector2{2,2})) {
+	v.SelfDivide(Vector2{2,2})
+	if !(v.Equals(Vector2{2,2})) {
 		test.Fail()
 	}
 }
@@ -82,7 +87,8 @@ func TestAddScalar(test *testing.T) {
 
 func TestSelfAddScalar(test *testing.T) {
 	v := Vector2{1,3}
-	if !(v.SelfAddScalar(2).Equals(Vector2{3,5})) {
+	v.SelfAddScalar(2)
+	if !(v.Equals(Vector2{3,5})) {
 		test.Fail()
 	}
 }
@@ -97,7 +103,8 @@ func TestSubtractScalar(test *testing.T) {
 
 func TestSelfSubtractScalar(test *testing.T) {
 	v := Vector2{1,3}
-	if !(v.SelfSubtractScalar(2).Equals(Vector2{-1,0})) {
+	v.SelfSubtractScalar(2)
+	if !(v.Equals(Vector2{-1,1})) {
 		test.Fail()
 	}
 }
